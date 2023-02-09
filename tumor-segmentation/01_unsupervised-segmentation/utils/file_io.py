@@ -28,7 +28,6 @@ def read_nii(path):
 
 def read_spec_file(roots, postfix):
     r"""
-    读取文件夹下特定后缀的所有文件，返回一个路径的列表；
     :param roots: a list that contained the root dirs
     :param postfix: the postfix of the file you want to find
     :return: list[path1,path2.......]

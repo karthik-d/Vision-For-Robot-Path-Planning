@@ -1,15 +1,3 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
-'''
-@File    :   seg_wt.py
-@Contact :   760320171@qq.com
-@License :   (C)Copyright 2019-2021, ISTBI, Fudan University
-
-@Modify Time      @Author    @Version    @Desciption
-------------      -------    --------    -----------
-2021/2/8 20:57   Botao Zhao      1.0         None
-'''
-
 # import lib
 import sys
 import os

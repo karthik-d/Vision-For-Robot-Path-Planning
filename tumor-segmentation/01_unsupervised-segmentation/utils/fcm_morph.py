@@ -106,10 +106,10 @@ class based_kmeans():
         full_label[model.result == np.argmax(model.C)] = 1
         full_tumor = np.reshape(full_label, self.shape)
 
-        # 填充连通域,获取boundingbox
+        #
         self.full_label, self.full_label_bbox = self.element_Choose(full_tumor)
         self.full_label = self.fill_full(self.full_label)
-        # 新的分割掩膜
+        # 
 
         self.t1ce[self.full_label == 0] = 0
         self.t1ce = self.t1ce[self.full_label_bbox[0]:self.full_label_bbox[3],
@@ -193,7 +193,7 @@ def run(start,end):
         model.Kmeans_segment()
         time_consumed = time.clock() - start
         print("time consumed: ", time.clock() - start)
-        # 形成新的nii文件
+        #
         new_nii = nib.Nifti1Image(model.all_label, affine_seg, hdr_seg)
         target_path = label_path[i][:-7] + "seg_5_fcm.nii"
         nib.save(new_nii, target_path)

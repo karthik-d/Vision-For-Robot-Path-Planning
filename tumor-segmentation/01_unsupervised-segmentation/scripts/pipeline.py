@@ -1,16 +1,3 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
-'''
-@File    :   pipeline.py
-@Contact :   760320171@qq.com
-@License :   (C)Copyright 2019-2021, ISTBI, Fudan University
-
-@Modify Time      @Author    @Version    @Desciption
-------------      -------    --------    -----------
-2021/2/7 12:35   Botao Zhao      1.0         None
-'''
-
-# import lib
 from utils import file_io
 import os
 from utils import img_utils
@@ -155,8 +142,6 @@ def seg_pipeline4(rootdir, uid, save_name):
 
 if __name__ == '__main__':
     rootdir = '/share/inspurStorage/home1/zhaobt/data/BraTS2018_training/HGG'
-    # rootdir = 'D:\jupyter\giloma_seg_pipeliine\data'
-    # rootdir = 'D:\jupyter\giloma_seg_pipeliine\data\\'
     case_list = os.listdir(rootdir)
     # case_list = ['Brats18_CBICA_AUN_1']
     print('running seg_pipeline2')

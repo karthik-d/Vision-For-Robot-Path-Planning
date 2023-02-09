@@ -42,10 +42,10 @@ class FCM:
 
     def update_U(self):
         """Compute weights"""
-        c_mesh, x_mesh = np.meshgrid(self.cluster_centers_, self.X)  # 形成两个等大小的隶属度矩阵，其中C被中心填充，X被像素填充
-        power = 2. / (self.m - 1)  # 指数
-        p1 = abs(x_mesh - c_mesh) ** power  # 公式的分子
-        p2 = np.sum((1.0 / abs(x_mesh - c_mesh)) ** power, axis=1)  # 公式的分母
+        c_mesh, x_mesh = np.meshgrid(self.cluster_centers_, self.X)
+        power = 2. / (self.m - 1)  
+        p1 = abs(x_mesh - c_mesh) ** power 
+        p2 = np.sum((1.0 / abs(x_mesh - c_mesh)) ** power, axis=1)
         return 1.0 / (p1 * p2[:, None])  # result
 
     def update_C(self):
@@ -68,7 +68,7 @@ class FCM:
         self.segmentImage()
 
     def deFuzzify(self):
-        return np.argmax(self.U, axis=1)  # 返回每一行最大值的下标
+        return np.argmax(self.U, axis=1)  #
 
     def segmentImage(self):
         result = self.deFuzzify()

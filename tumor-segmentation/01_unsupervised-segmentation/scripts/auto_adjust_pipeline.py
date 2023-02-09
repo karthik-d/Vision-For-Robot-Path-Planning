@@ -1,16 +1,3 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
-'''
-@File    :   auto_adjust_pipeline.py    
-@Contact :   760320171@qq.com
-@License :   (C)Copyright 2019-2021, ISTBI, Fudan University
-
-@Modify Time      @Author    @Version    @Desciption
-------------      -------    --------    -----------
-2021/2/18 12:10   Botao Zhao      1.0         None
-'''
-
-# import lib
 import sys
 
 sys.path.append('../')
@@ -129,8 +116,6 @@ if __name__ == '__main__':
     import threading, math
 
     rootdir = '/share/inspurStorage/home1/zhaobt/data/BraTS2018_training/HGG'
-    # rootdir = 'D:\jupyter\giloma_seg_pipeliine\data'
-    # rootdir = 'D:\jupyter\giloma_seg_pipeliine\data\\'
     caselist = os.listdir(rootdir)
     num_thread = 12
 

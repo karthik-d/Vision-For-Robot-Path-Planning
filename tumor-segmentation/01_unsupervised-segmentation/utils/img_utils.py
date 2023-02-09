@@ -1,15 +1,3 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
-'''
-@File    :   img_utils.py    
-@Contact :   760320171@qq.com
-@License :   (C)Copyright 2019-2021, ISTBI
-
-@Modify Time      @Author    @Version    @Desciption
-------------      -------    --------    -----------
-2021/1/24 17:28   Botao Zhao      1.0    For array-type image.
-'''
-
 # import lib
 import sklearn.cluster as cluster
 from skimage import measure as ms
