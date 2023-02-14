@@ -1,2 +1,0 @@
-BATCH_SIZE = 32
-IMG_SIZE = (256, 256, 3)
