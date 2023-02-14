@@ -1,9 +1,10 @@
 import numpy as np
+import keras
 import glob
 
 from .path_manager import append_linear_levels
 from utils import niftis, dicoms, niftis
-from ..config import *
+from config import *
 
 
 class InputSequencer(keras.utils.Sequence):

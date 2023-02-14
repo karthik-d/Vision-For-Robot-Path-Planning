@@ -5,8 +5,6 @@ import os
 from scipy import ndimage
 import matplotlib.pyplot as plt
 
-from config import *
-
 # Append and extend path as long as there is only
 # one file in the directory!
 def append_linear_levels(path):
