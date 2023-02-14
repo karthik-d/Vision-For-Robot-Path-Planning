@@ -6,8 +6,6 @@ import os
 from scipy import ndimage
 import matplotlib.pyplot as plt
 
-#from skimage import measure, morphology
-
 
 # Append and extend path as long as there is only
 # one file in the directory!

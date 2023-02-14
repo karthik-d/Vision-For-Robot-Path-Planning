@@ -4,6 +4,7 @@ import nibabel as nib
 from scipy import ndimage
 import os
 
+
 # Append and extend path as long as there is only
 # one file in the directory!
 def append_linear_levels(path):
@@ -72,9 +73,3 @@ def resample_volume(case, reqd_slices, reqd_width, reqd_height, interpolate_meth
 	# Resize across z-axis
 	case = ndimage.zoom(case, (depth_factor, width_factor, height_factor), order=SPLINE_ORDER[interpolate_method])
 	return case
-
-"""
-first_case = load_scan(append_linear_levels(os.path.join(DATA_PATH, cases[0])))
-first_case = resize_volume(first_case, 32, 128, 128)
-first_case = order_dimensions(first_case, "DWH")
-"""
