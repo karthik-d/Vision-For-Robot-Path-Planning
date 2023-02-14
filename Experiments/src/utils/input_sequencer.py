@@ -1,34 +1,41 @@
 import numpy as np
-import dicoms, niftis
+import glob
 
-import path_manager
+from .path_manager import append_linear_levels
+from utils import niftis, dicoms, niftis
 from ..config import *
 
+
 class InputSequencer(keras.utils.Sequence):
-    """
-    Base sequencer class for all datasets
-    """
+	"""
+	Base sequencer class for all datasets
+	"""
 
 	def __init__(self, shuffle=True):		
 		self.shuffle = shuffle		
-        self.BATCH_SIZE = BATCH_SIZE
+		self.BATCH_SIZE = BATCH_SIZE
 		self.IMG_SIZE = IMG_SIZE    # As (width, height, channels)
 
 	def get_instance_paths(self, root_path, dataformat='nifti'):
+
 		if dataformat == 'nifti':
-			instance_paths = sorted(os.listdir(root_path))
+			instance_paths = sorted(glob.glob(os.path.join(root_path, "*.nii")))
 			full_paths = []
+			
 			for scan in instance_paths:
 				path_ = os.path.join(root_path, scan)
-				full_paths.append(path_manager.append_linear_levels(path_, True))
+				full_paths.append(append_linear_levels(path_, True))
 			return full_paths
+
 		elif dataformat == 'dicom':
-			instance_paths = sorted(os.listdir(root_path))
+			instance_paths = sorted(glob.glob(os.path.join(root_path, "*.dcm")))
 			full_paths = []
+			
 			for scan in instance_paths:
 				path_ = os.path.join(root_path, scan)
-				full_paths.append(path_manager.append_linear_levels(path_, False))
+				full_paths.append(append_linear_levels(path_, False))
 			return full_paths
+
 		else:
 			return None
 
@@ -103,7 +110,7 @@ def test_run():
 		ctr += 1
 		try:
 			path_ = os.path.join(PLETHORA_SCAN_PATH, scan)
-			scan = path_manager.append_linear_levels(path_, False)
+			scan = append_linear_levels(path_, False)
 			scan = dicoms.load_scan(scan)
 			scan = dicoms.get_pixels_hu(scan)
 			scan = dicoms.resample_volume(scan, 32, 128, 128)
@@ -127,7 +134,7 @@ def test_run():
 		ctr += 1
 		try:
 			path_ = os.path.join(PLETHORA_LUNGMASK_PATH, annot)
-			annot = path_manager.append_linear_levels(path_, True)
+			annot = append_linear_levels(path_, True)
 			annot = niftis.load_scan(annot)
 			annot = niftis.resample_volume(annot, 32, 128, 128)
 			annot = niftis.order_dimensions(annot, "DWH")

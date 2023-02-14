@@ -1,4 +1,3 @@
-from config import *
 import numpy as np 
 import pandas as pd 
 import pydicom as dicom
@@ -6,6 +5,7 @@ import os
 from scipy import ndimage
 import matplotlib.pyplot as plt
 
+from config import *
 
 # Append and extend path as long as there is only
 # one file in the directory!
