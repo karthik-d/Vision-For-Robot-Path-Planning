@@ -1,6 +1,6 @@
 import os
 
-BATCH_SIZE = 32
+BATCH_SIZE = 1
 IMG_SIZE = (256, 256, 3)
 
 ROOT_PATH = os.path.abspath(os.path.join(__file__, *((os.path.pardir,)*2)))

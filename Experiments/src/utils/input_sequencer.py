@@ -72,8 +72,8 @@ class InputSequencer(keras.utils.Sequence):
 				elif self.scan_format == 'nifti':
 					scan = niftis.load_scan(scan_path)
 					# Requires reordering
-					scan = niftis.order_dimensions(scan, "DWH")
-					scan = niftis.resample_volume(scan, *(self.IMG_SIZE[:3]), 'CUBIC')
+					#scan = niftis.order_dimensions(scan, "DWH")
+					#scan = niftis.resample_volume(scan, *(self.IMG_SIZE[:3]), 'CUBIC')
 					scan = np.expand_dims(scan, axis=-1)
 				# Load Annotations (y-data)
 				if self.annot_format == 'dicom':
@@ -85,11 +85,12 @@ class InputSequencer(keras.utils.Sequence):
 				elif self.annot_format == 'nifti':
 					annot = niftis.load_scan(annot_path)
 					# Requires reordering
-					annot = niftis.order_dimensions(annot, "DWH")
-					annot = niftis.resample_volume(annot, *(self.IMG_SIZE[:3]), 'NEAREST_N')
+					#annot = niftis.order_dimensions(annot, "DWH")
+					#annot = niftis.resample_volume(annot, *(self.IMG_SIZE[:3]), 'NEAREST_N')
 					annot = np.expand_dims(annot, axis=-1)
 			
 			except Exception as e:
+				print(e)
 				subst_idx = np.random.randint(0, len(self.scan_paths))
 				batch_scan_paths.append(self.scan_paths[subst_idx])
 				batch_annot_paths.append(self.annot_paths[subst_idx])
