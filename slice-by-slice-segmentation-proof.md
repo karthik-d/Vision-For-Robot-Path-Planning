@@ -7,7 +7,7 @@ The key advantage of this approach is that it can be more robust to noise and ot
 
 Therefore, we conclude that slice-by-slice segmentation can be an effective way to segment 3D CT images, particularly for structures that are naturally represented as a stack of 2D images. By segmenting each slice individually and using the previous segmentations as priors, we can incorporate more information about the structure into the segmentation process and potentially achieve better results than by applying a global thresholding algorithm to the entire 3D volume at once.
 
-**Proof by contrdiction:**
+**Proof by contradiction:**
 
 In order to write a formal proof explaining why slice-by-slice segmentation works, we need to make some assumptions and establish some definitions first.
 
