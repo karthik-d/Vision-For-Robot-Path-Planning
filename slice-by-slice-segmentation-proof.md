@@ -38,7 +38,7 @@ Case 2: The voxel v is mislabeled as part of the structure, but it should be bac
 Since both cases lead to a contradiction, we have shown that slice-by-slice segmentation of a contiguous anatomical structure in a 3D CT scan works, given the assumptions above.
 
 
-**Proof #2 (without using contradiction):**:
+**Proof #2 (without using contradiction):**
 Let $I(x,y,z)$ be a 3D CT image, where $x,y,z$ denote the spatial coordinates. Our goal is to segment a target structure $S$ from the background. We assume that $S$ is connected and has a reasonably smooth boundary in the image.
 
 Suppose we apply a global thresholding algorithm to the entire 3D volume at once, using a threshold value $T$. Let $S_T$ be the resulting segmentation, defined as:
