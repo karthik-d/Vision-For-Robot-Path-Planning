@@ -43,50 +43,50 @@ Let $I(x,y,z)$ be a 3D CT image, where $x,y,z$ denote the spatial coordinates. O
 
 Suppose we apply a global thresholding algorithm to the entire 3D volume at once, using a threshold value $T$. Let $S_T$ be the resulting segmentation, defined as:
 
-$S_T(x,y,z) = \begin{cases}
+$$S_T(x,y,z) = \begin{cases}
     1 & \text{if } I(x,y,z) > T \\
     0 & \text{otherwise}
-\end{cases}$
+\end{cases}$$
 
 Note that $S_T$ is a binary image that indicates which voxels belong to the target structure.
 
 Now, let us consider slice-by-slice segmentation. We begin by segmenting the first slice, which we assume is parallel to the $xy$ plane. Let $S_1(x,y)$ be the resulting segmentation of the first slice, defined as:
 
-$S_1(x,y,z) = \begin{cases}
+$$S_1(x,y,z) = \begin{cases}
     1 & \text{if } I(x,y,z) > T \\
     0 & \text{otherwise}
-\end{cases}$
+\end{cases}$$
 
 Note that $S_1$ is a binary image that indicates which pixels in the first slice belong to the target structure.
 
 Next, we move on to the second slice, and use the segmentation of the first slice as a prior to guide the segmentation of the second slice. Specifically, we define a prior probability map $P(x,y)$, where $P(x,y)$ is proportional to the probability that a voxel with spatial coordinates $(x,y,1)$ belongs to the target structure. We can define $P(x,y)$ as:
 
-$P(x,y) = \frac{1}{Z_1} \sum_{i,j} S_1(i,j) \exp\left(-\alpha(x-i)^2 -\beta(y-j)^2\right)$
+$$P(x,y) = \frac{1}{Z_1} \sum_{i,j} S_1(i,j) \exp\left(-\alpha(x-i)^2 -\beta(y-j)^2\right)$$
 
 where $Z$ is a normalization constant, $\alpha$ and $\beta$ are parameters that control the spatial smoothness of the prior, and the sum is taken over all pixels $(i,j)$ in the first slice. Note that the prior probability map is essentially a smoothed version of the segmentation of the first slice, with the smoothing controlled by the parameters $\alpha$ and $\beta$.
 
 We can then use the prior probability map to guide the segmentation of the second slice. Specifically, we define the segmentation of the second slice, $S_2(x,y)$, as:
 
-$S_2(x,y) = \begin{cases}
+$$S_2(x,y) = \begin{cases}
     1 & \text{if } I(x,y,2) > TP(x,y) \\
     0 & \text{otherwise}
-\end{cases}$
+\end{cases}$$
 
 Note that we have used the prior probability map $P(x,y)$ to define a local threshold value $T P(x,y)$ for each voxel in the second slice.
 
 We can repeat this process for each subsequent slice, using the previous segmentations as priors to guide the segmentation of the current slice. Specifically, for the $k$th slice, we define the prior probability map $P(x,y)$ as:
 
-$P(x,y) = \frac{1}{Z_k} \sum_{i,j} S_{k-1}(i,j) \exp\left(-\alpha(x-i)^2 -\beta(y-j)^2\right)$
+$$P(x,y) = \frac{1}{Z_k} \sum_{i,j} S_{k-1}(i,j) \exp\left(-\alpha(x-i)^2 -\beta(y-j)^2\right)$$
 
 and the segmentation of the $k$th slice, $S_k(x,y)$, as:
-$S_k(x,y) = \begin{cases}
+$$S_k(x,y) = \begin{cases}
     1 & \text{if } I(x,y,k) > TP(x,y) \\
     0 & \text{otherwise}
-\end{cases}$
+\end{cases}$$
 
 The final segmentation of the target structure, $S_{final}(x,y,z)$, is the union of all slice segmentations:
 
-$S_{\text{final}}(x,y,z) = \bigcup_{k=1}^n S_k(x,y) \delta_{z,k}$
+$$S_{\text{final}}(x,y,z) = \bigcup_{k=1}^n S_k(x,y) \delta_{z,k}$$
 
 where $\delta_{z,k}$ is the Kronecker delta function that equals $1$ if $z=k$ and $0$ otherwise.
 
