@@ -4,13 +4,13 @@ clear all;
 episode = 1;
 tingzhi = 0;
 finite_states = 100000;
-iterations = 10000;
+iterations = 1000;
 max_tolerance = 10000;
 visualize = 0; % whether visualize, increase time consuming!
 
 while episode <= 1
-    ALPHA = 0.05;
-    GAMA = 0.9;
+    ALPHA = 0.30;
+    GAMA = 0.7;
     inde = 2;
     truei = 1;
     get=0;
