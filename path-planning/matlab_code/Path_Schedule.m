@@ -4,9 +4,12 @@ clear all;
 episode = 1;
 tingzhi = 0;
 finite_states = 100000;
-iterations = 1000;
+iterations = 10000;
 max_tolerance = 10000;
 visualize = 0; % whether visualize, increase time consuming!
+% Define initial temperature and cooling rate for simulated annealing
+initial_temp = 1.0;
+cooling_rate = 0.005;
 
 while episode <= 1
     ALPHA = 0.30;
@@ -54,12 +57,13 @@ while episode <= 1
         kongpao = 0;
         getout_past = 0;
         greedy_set = min(0.9+0.1*nppp/9900, 1);
-        
+
         for i=1:1:max_tolerance % max move time for one iteration
             r = 0;
             
             if nppp <= 9900
-                greedy = rand(1,1);
+                % Calculate current temperature based on number of steps in the current episode
+                greedy = initial_temp * exp(-cooling_rate * nppp);
             else
                 greedy = 0;
             end
