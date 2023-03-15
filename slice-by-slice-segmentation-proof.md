@@ -53,7 +53,7 @@ Note that $S_T$ is a binary image that indicates which voxels belong to the targ
 Now, let us consider slice-by-slice segmentation. We begin by segmenting the first slice, which we assume is parallel to the $xy$ plane. Let $S_1(x,y)$ be the resulting segmentation of the first slice, defined as:
 
 $$S_1(x,y,z) = \begin{cases}
-    1 & \text{if } I(x,y,z) > T \\
+    1 & \text{if } I(x,y,1) > T \\
     0 & \text{otherwise}
 \end{cases}$$
 
@@ -76,7 +76,7 @@ Note that we have used the prior probability map $P(x,y)$ to define a local thre
 
 We can repeat this process for each subsequent slice, using the previous segmentations as priors to guide the segmentation of the current slice. Specifically, for the $k$th slice, we define the prior probability map $P(x,y)$ as:
 
-$$P(x,y) = \frac{1}{Z_k} \sum_{i,j} S_{k-1}(i,j) \exp\left(-\alpha(x-i)^2 -\beta(y-j)^2\right)$$
+$$P(x,y) = \frac{1}{Z_{k-1}} \sum_{i,j} S_{k-1}(i,j) \exp\left(-\alpha(x-i)^2 -\beta(y-j)^2\right)$$
 
 and the segmentation of the $k$th slice, $S_k(x,y)$, as:
 
