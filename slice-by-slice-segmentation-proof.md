@@ -79,6 +79,7 @@ We can repeat this process for each subsequent slice, using the previous segment
 $$P(x,y) = \frac{1}{Z_k} \sum_{i,j} S_{k-1}(i,j) \exp\left(-\alpha(x-i)^2 -\beta(y-j)^2\right)$$
 
 and the segmentation of the $k$th slice, $S_k(x,y)$, as:
+
 $$S_k(x,y) = \begin{cases}
     1 & \text{if } I(x,y,k) > TP(x,y) \\
     0 & \text{otherwise}
