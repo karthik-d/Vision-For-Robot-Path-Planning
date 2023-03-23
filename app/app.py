@@ -35,13 +35,14 @@ def predict():
 def pathplanning():
 
     if request.method == 'POST':
-        # start matlab in the background
-
-        #load the engine and run the path-planning files
+        # Load the engine and run the path-planning files
         eng = matlab.engine.start_matlab()
         eng.run("C:/Users/aniru/Vision-For-Robot-Path-Planning/path-planning/matlab-code/Path_Schedule.m", nargout=0)    
-        print('done')
-        return render_template('path-planning.html', Loading = False)
+
+        # Wait for user input before closing the figures
+        input('Press Enter to Continue..')
+
+        return render_template('path-planning.html', loading = False)
 
     else:
         # Loading page
