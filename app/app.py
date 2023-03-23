@@ -23,12 +23,15 @@ def home():
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
-        pass
+        return redirect(url_for('pathplanning'))
     
     else:
         # TODO - pass actual img filename
         return render_template('set-params-path-planning.html', image = 'segmented-output-sample.png')
 
+@app.route('/pathplanning', methods=['GET', 'POST'])
+def pathplanning():
+    return render_template('path-planning.html')
 
 if __name__ == "__main__":
     app.secret_key="secret123"
