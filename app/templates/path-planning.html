@@ -22,6 +22,12 @@
       top: 45%;
       left: 44%;
     }
+    #info {
+      position: absolute;
+      top: 55%;
+      left: 33.5%;
+
+    }
   </style>
 
 </head>
@@ -33,6 +39,7 @@
         </div>
     </div>
     {% if loading %}
+    <div>
         <div class="text-center" id="loading">
             <script>
                 $(document).ready(function() {
@@ -41,11 +48,24 @@
             </script>            
             <span class="lg">Running MATLAB scripts...</span>
             <div class="spinner-border text-primary ml-4" role="status">
-            <span class="sr-only">Loading...</span>
+              <span class="sr-only">Loading...</span>
+            </div>
         </div>
+        <div class="col-md-4" id="info">
+          <div class="card bg-light text-dark">
+            <div class="card-body text-center">
+              <h5 class="card-title">ⓘ Info</h5>
+              <p class="card-text">Please review the server logs to obtain a comprehensive understanding of the training process, and press the Enter key when you are prepared to complete.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     {% else %}
         <div class="text-center ml-2" id="loading">
             <span class="lg">Path planning complete!</span>
+            <div>
+              <a id="back-to-top" href="{{url_for('home')}}" class="btn btn-dark btn-lg back-to-top mt-4" role="button" style="margin-bottom: 20px;">Start Again</a>
+            </div>
         </div>
     {% endif %}
 
