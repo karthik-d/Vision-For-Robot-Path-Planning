@@ -6,7 +6,7 @@ tingzhi = 0;
 finite_states = 100000;
 iterations = 2;
 max_tolerance = 10000;
-visualize = 1; % whether visualize, increase time consuming!
+visualize = 0; % whether visualize, increase time consuming!
 % Define initial temperature and cooling rate for simulated annealing
 initial_temp = 1.0;
 cooling_rate = 0.005;

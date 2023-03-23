@@ -20,6 +20,7 @@ def home():
     else:
         return render_template('model-prediction.html')
 
+
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
@@ -29,10 +30,23 @@ def predict():
         # TODO - pass actual img filename
         return render_template('set-params-path-planning.html', image = 'segmented-output-sample.png')
 
+
 @app.route('/pathplanning', methods=['GET', 'POST'])
 def pathplanning():
-    
-    return render_template('path-planning.html')
+
+    if request.method == 'POST':
+        # start matlab in the background
+
+        #load the engine and run the path-planning files
+        eng = matlab.engine.start_matlab()
+        eng.run("C:/Users/aniru/Vision-For-Robot-Path-Planning/path-planning/matlab-code/Path_Schedule.m", nargout=0)    
+        print('done')
+        return render_template('path-planning.html', Loading = False)
+
+    else:
+        # Loading page
+        return render_template('path-planning.html', loading = True)
+
 
 if __name__ == "__main__":
     app.secret_key="secret123"

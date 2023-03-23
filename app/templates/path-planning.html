@@ -9,7 +9,9 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
   <title>Assistive Tool for Thrombectomy</title>
+  
   <style>
     body {
       background-color: #fff;
@@ -21,6 +23,7 @@
       left: 44%;
     }
   </style>
+
 </head>
 
 <body class="text-center overflow-hidden">
@@ -29,11 +32,24 @@
           <h4 class="text-white">Path Planning</h4>
         </div>
     </div>
-    <div class="text-center" id="loading">
-        <span class="lg">Running MATLAB scripts...</span>
-        <div class="spinner-border text-primary ml-4" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
+    {% if loading %}
+        <div class="text-center" id="loading">
+            <script>
+                $(document).ready(function() {
+                  $('#matlabLoader').submit();
+                });
+            </script>            
+            <span class="lg">Running MATLAB scripts...</span>
+            <div class="spinner-border text-primary ml-4" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    {% else %}
+        <div class="text-center" id="loading">
+            <span class="lg">Path planning complete!</span>
+        </div>
+    {% endif %}
+
+    <form action="" method="post" id="matlabLoader"></form>
 </body>
 
 </html>
