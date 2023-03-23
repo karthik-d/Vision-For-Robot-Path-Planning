@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-#import matlab.engine
+import matlab.engine
 
 app = Flask(__name__)
 
@@ -31,6 +31,7 @@ def predict():
 
 @app.route('/pathplanning', methods=['GET', 'POST'])
 def pathplanning():
+    
     return render_template('path-planning.html')
 
 if __name__ == "__main__":

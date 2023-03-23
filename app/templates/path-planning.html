@@ -18,17 +18,22 @@
     #loading {
       position: absolute;
       top: 45%;
-      left: 45%;
+      left: 44%;
     }
   </style>
 </head>
 
-<body class="text-center">
- <div class="text-center" id="loading">
-    <span class="lg">Performing Path Planning...</span>
-    <div class="spinner-border text-primary ml-4" role="status">
-     <span class="sr-only">Loading...</span>
-   </div>
+<body class="text-center overflow-hidden">
+    <div class="row bg-dark py-3">
+        <div class="col-12 text-center">
+          <h4 class="text-white">Path Planning</h4>
+        </div>
+    </div>
+    <div class="text-center" id="loading">
+        <span class="lg">Running MATLAB scripts...</span>
+        <div class="spinner-border text-primary ml-4" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
 </body>
 
 </html>
