@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Assistive Tool for Thrombectomy</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+    .container-fluid {
+      min-height: 100%;
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row py-3">
+      <div class="col-12 text-center">
+        <h1 class="text-dark">Assistive Tool for Thrombectomy</h1>
+      </div>
+    </div>
+    <div class="row py-5">
+      <div class="col-lg-6 col-md-8 col-sm-10 mx-auto">
+        <form action="#" method="post" enctype="multipart/form-data" class="bg-white p-3 rounded">
+          <h2 class="text-center mb-4">Upload an image</h2>
+          <div class="form-group">
+            <input type="file" class="form-control-file border" name="file">
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Predict</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row py-3">
+      <div class="col-12 text-center">
+        <img height="100" width ="100" src="{{url_for('static', filename='normal-brain.png')}}" alt="Normal Brain" class="mx-3">
+        <img height="100" width ="100" src="{{url_for('static', filename='embedded-stroke.png')}}" alt="Embedded Lesion" class="mx-3">
+        <img height="100" width ="100" src="{{url_for('static', filename='multiple-stroke.png')}}" alt="Multiple Lesion" class="mx-3">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
