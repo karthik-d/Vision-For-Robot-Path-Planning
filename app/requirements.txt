@@ -1,2 +1,2 @@
-flask
-matlabengine==9.13.1
+flask==2.2.3
+matlabengine==9.13.7
