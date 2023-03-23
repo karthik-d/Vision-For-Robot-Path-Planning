@@ -4,9 +4,9 @@ clear all;
 episode = 1;
 tingzhi = 0;
 finite_states = 100000;
-iterations = 10000;
+iterations = 2;
 max_tolerance = 10000;
-visualize = 0; % whether visualize, increase time consuming!
+visualize = 1; % whether visualize, increase time consuming!
 % Define initial temperature and cooling rate for simulated annealing
 initial_temp = 1.0;
 cooling_rate = 0.005;
@@ -25,7 +25,7 @@ while episode <= 1
     
     workpath(finite_states,:) = (0);
     walk(finite_states,:) = (0);
-    terminal =  [-1,2,0];
+    terminal =  [0,0,3];
     obstacle =  [0,1,0;0,3,0;1,1,0;-1,1,0;-1,2,1;-1,3,1;-1,3,0;0,1,1;0,3,1;1,1,1;-1,1,1;0,1,-1;0,3,-1;1,1,-1;1,2,-1;1,3,-1;-1,1,-1;-1,2,-1;-1,3,-1;0,2,-1];
     %[0,1,0; 0,3,0; 1,1,0; -1,1,0; -1,2,1; -1,3,1; -1,3,0; 0,1,1; 0,3,1; 1,1,1; -1,1,1; 0,1,-1; 0,3,-1; 1,1,-1; 1,2,-1; 1,3,-1; -1,1,-1; -1,2,-1;  -1,3,-1; 0,2,-1];
     

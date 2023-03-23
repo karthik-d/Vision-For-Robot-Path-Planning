@@ -2,7 +2,7 @@
 %ini_robot 
 Path_Schedule  % Terminal path planning
 overflow = 0; flow_pace = 1; theta = 1; pppp = 1; angle_change = 1;
-finite_states = 100000; iterations = 10000; max_tolerance = 10000;
+finite_states = 100000; iterations = 0; max_tolerance = 100;
 re_sche_vision = 1;
 
 x1_1=[ 0 1 2 3 4 -1 -2 -3]; % permutation and combination, break down each axis to 45¡ã, from -135¡ãto 180¡ã
@@ -119,48 +119,48 @@ while kkk <= 50
                 
                 if realdistance_1 <= distance_limited_joint
                     collision = 1;
-                    realdistance_1
+                    realdistance_1;
                     break
                 end
                 if realdistance_2 <= distance_limited_joint
                     collision = 1;
-                    realdistance_2
+                    realdistance_2;
                     break
                 end
                 if realdistance_3_bu <= distance_limited_joint
                     collision = 1;
-                    realdistance_3_bu
+                    realdistance_3_bu;
                     break
                 end
                 if realdistance_3 <= distance_limited_joint
                     collision = 1;
-                    realdistance_3
+                    realdistance_3;
                     break
                 end
                 if realdistance_4 <= distance_limited_joint
                     collision = 1;
-                    realdistance_4
+                    realdistance_4;
                     break
                 end
                 
                 if realdistance_6 <= distance_limited_point
                     collision = 1;
-                    realdistance_6
+                    realdistance_6;
                     break
                 end
                 if realdistance_7 <= distance_limited_point
                     collision = 1;
-                    realdistance_7
+                    realdistance_7;
                     break
                 end
                 if realdistance_8 <= distance_limited_point
                     collision = 1;
-                    realdistance_8
+                    realdistance_8;
                     break
                 end
                 if realdistance_9 <= distance_limited_point
                     collision = 1;
-                    realdistance_9
+                    realdistance_9;
                     break
                 end
             end
@@ -190,7 +190,7 @@ while kkk <= 50
                     marker_weizi_rough(k_theta,7) = sum(abs(qn - q0));
                 end
                 [theta_m,theta_n] = min(marker_weizi_rough(1:1:k_theta,7));
-                marker_weizi(l,:) = marker_weizi_rough(theta_n,[1,2,3,4,5,6])
+                marker_weizi(l,:) = marker_weizi_rough(theta_n,[1,2,3,4,5,6]);
                 q0 =  marker_weizi(l,:);
                 l = l+1;
                 pick_angle_mark = 1;
@@ -406,7 +406,7 @@ while kkk <= 50
                 end
                 
                 if (ddd+1) > inde
-                    realplace(inde,:) = place(i+1,:)
+                    realplace(inde,:) = place(i+1,:);
                     inde = inde + 1;
                     break
                 end
@@ -421,7 +421,7 @@ while kkk <= 50
             ppp = truei;
             c_past = c;
             if re_sche_vision == 1
-                set(h,'xdata',place(i,1),'ydata',place(i,2),'zdata',place(i,3)); drawnow; 
+                set(h,'xdata',place(i,1),'ydata',place(i,2),'zdata',place(i,3));
             end
             if getout == 1
                 if i > 1
@@ -447,4 +447,4 @@ while kkk <= 50
     end
 end
 show_line = 0;
-Plot_Arm_Movement;
+% Plot_Arm_Movement;

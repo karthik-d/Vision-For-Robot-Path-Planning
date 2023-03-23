@@ -1,5 +1,6 @@
 Plot_Environment; hold on;
 path_length = workpath(nppp-1,1);
+show_line = 1;
 if show_line == 1
     for drawdraw = 1:1:path_length
         plot3(place(drawdraw:drawdraw+1,1),place(drawdraw:drawdraw+1,2),place(drawdraw:drawdraw+1,3),'linewidth',10,'color','b');
