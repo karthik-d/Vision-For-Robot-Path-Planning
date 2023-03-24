@@ -1,73 +1,37 @@
-import time
-import numpy as np
-
 from skimage import io
-
-vol = io.imread("https://s3.amazonaws.com/assets.datacamp.com/blog_assets/attention-mri.tif")
-volume = vol.T
-r, c = volume[0].shape
-
-# Define frames
-import plotly.graph_objects as go
-nb_frames = 68
-
-fig = go.Figure(frames=[go.Frame(data=go.Surface(
-    z=(6.7 - k * 0.1) * np.ones((r, c)),
-    surfacecolor=np.flipud(volume[67 - k]),
-    cmin=0, cmax=200
-    ),
-    name=str(k) # you need to name the frame for the animation to behave properly
-    )
-    for k in range(nb_frames)])
-
-# Add data to be displayed before animation starts
-fig.add_trace(go.Surface(
-    z=6.7 * np.ones((r, c)),
-    surfacecolor=np.flipud(volume[67]),
-    colorscale='Gray',
-    cmin=0, cmax=200,
-    colorbar=dict(thickness=20, ticklen=4)
-    ))
+import numpy as np
+import os
 
 
-def frame_args(duration):
-    return {
-            "frame": {"duration": duration},
-            "mode": "immediate",
-            "fromcurrent": True,
-            "transition": {"duration": duration, "easing": "linear"},
-        }
+class VolumeSliceSequencer:
 
-sliders = [
-            {
-                "pad": {"b": 10, "t": 60},
-                "len": 0.9,
-                "x": 0.1,
-                "y": 0,
-                "steps": [
-                    {
-                        "args": [[f.name], frame_args(0)],
-                        "label": str(k),
-                        "method": "animate",
-                    }
-                    for k, f in enumerate(fig.frames)
-                ],
-            }
-        ]
+    def __init__(self, volume_path, target_slice_size=None, batching_size=None):
+        
+        self.batching_size = batching_size
+        self.target_slice_size = target_slice_size
+        # assume all images in the path are slices in a sorted order
+        if not os.path.exists(volume_path):
+            self.volume = io.imread("https://s3.amazonaws.com/assets.datacamp.com/blog_assets/attention-mri.tif")
+            return None
 
-# Layout
-fig.update_layout(
-         title='Slices in volumetric data',
-         width=600,
-         height=600,
-         scene=dict(
-                    zaxis=dict(range=[-0.1, 6.8], autorange=False),
-                    aspectratio=dict(x=1, y=1, z=1),
-                    ),
-         updatemenus = [
-            
-         ],
-         sliders=sliders
-)
+        volume = []
+        for slice_f in sorted(os.listdir(volume_path)):
+            slice_ = io.imread(os.path.join(volume_path, slice_f))
+            if target_slice_size is not None:
+                transform.resize(slice_, self.target_slice_size)
+            volume.append(slice_)
+        self.volume = np.array(volume)
 
-fig.show()
+    def __iter__(self):
+        
+        if self.batching_size is None:
+            yield self.volume 
+
+        else:
+            for i in range(0, self.volume.shape[0], self.batching_size):
+                yield self.volume[i:i+self.batching_size]
+
+
+tester = VolumeSliceSequencer(os.path.join('..', 'assets', 'scan_6'))
+for i in tester:
+    print(i.shape)
