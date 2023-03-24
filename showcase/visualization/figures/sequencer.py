@@ -42,6 +42,7 @@ class VolumeSliceSequencer:
 
         # normalization for colorscale -- reserve 1.0 for mask
         self.volume[self.volume>250] = 250
+        # self.volume[self.volume<30] = 30
 
     def iter_with_mask(self):
         self.apply_mask = True
@@ -97,8 +98,8 @@ class VolumeSliceSequencer:
         if self.apply_mask:
             volume[self.mask>127] = 255
 
-        if self.apply_gt:
-            volume[self.gt>127] = 0
+        # if self.apply_gt:
+        #     volume[self.gt>127] = 0
 
         if self.batching_size is None:
             for i, slice_ in enumerate(volume):
