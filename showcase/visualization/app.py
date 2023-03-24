@@ -6,7 +6,7 @@ import plotly
 import plotly.express as px
 import os
 
-from figures import preparator
+from figures import preparator, sequencer
 from config import *
 
 
@@ -48,7 +48,7 @@ def volume_figure():
     #         order=0
     #     )
     # )
-    vol = io.imread("https://s3.amazonaws.com/assets.datacamp.com/blog_assets/attention-mri.tif")
+    volume_iter
     fig = preparator.get_volume_figure(vol)
     
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)   

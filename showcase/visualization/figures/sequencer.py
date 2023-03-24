@@ -1,4 +1,4 @@
-from skimage import io
+from skimage import io, transform
 import numpy as np
 import os
 
@@ -6,7 +6,7 @@ import os
 class VolumeSliceSequencer:
 
     def __init__(self, volume_path, target_slice_size=None, batching_size=None):
-        
+            
         self.batching_size = batching_size
         self.target_slice_size = target_slice_size
         # assume all images in the path are slices in a sorted order
@@ -22,16 +22,22 @@ class VolumeSliceSequencer:
             volume.append(slice_)
         self.volume = np.array(volume)
 
+        # patching to support basic 'array queries'
+        # TODO: Make subclass of ndarray
+        self.shape = self.volume.shape if self.batching_size is None else (self.batching_size, *self.volume.shape[1:])
+
+    def __get__(self, idx):
+        return self.volume[idx]
+    
     def __iter__(self):
         
         if self.batching_size is None:
             yield self.volume 
-
         else:
             for i in range(0, self.volume.shape[0], self.batching_size):
                 yield self.volume[i:i+self.batching_size]
 
 
-tester = VolumeSliceSequencer(os.path.join('..', 'assets', 'scan_6'))
-for i in tester:
-    print(i.shape)
+# tester = VolumeSliceSequencer(os.path.join('..', 'assets', 'scan_6'), target_slice_size=(50, 50))
+# for i in tester:
+#     print(i.shape)
