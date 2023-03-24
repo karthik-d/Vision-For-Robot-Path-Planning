@@ -70,8 +70,17 @@ SLICE_HEIGHT = 50
 
 
 # gray_cmap = plt.get_cmap("gray")
-PLOT_COLORSCALE = [
-	[x/255, f'rgb({x},{x},{x})']
+# Standard Scaling: 0-255 to 0.1-0.9
+PLOT_COLORSCALE = [[0.0, 'rgb(0, 0, 200)']] # for second mask
+PLOT_COLORSCALE.extend([
+	[(0.1+(x*0.8)/255), f'rgb({x},{x},{x})']
+	for x in range(255)
+])
+PLOT_COLORSCALE.append([1.0, 'rgb(100, 0, 0)']) # for masks
+
+PLOT_OPACITYSCALE = [
+	[x/256, 1]
 	for x in range(255)
 ]
-PLOT_COLORSCALE.append([1.0, 'rgb(100, 0, 0)']) # for masks
+PLOT_OPACITYSCALE.append([1.0, 0.4])
+PLOT_OPACITYSCALE.append([0.0, 0.4])
