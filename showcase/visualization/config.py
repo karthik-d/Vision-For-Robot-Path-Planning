@@ -38,7 +38,7 @@ def pack_update_menu_config(play_bt_dur=50, pause_bt_dur=0):
 				"method": "animate",
 			},
 			{
-				"args": [[None], frame_args(pause_bt_dur)],
+				"args": [[None], pack_frame_config(pause_bt_dur)],
 				"label": "&#9724;", # pause symbol
 				"method": "animate",
 			},
@@ -54,6 +54,10 @@ def pack_update_menu_config(play_bt_dur=50, pause_bt_dur=0):
 def pack_scene_config():
 	
 	return {
-		'zaxis': {'range': [-0.1, 6.8], 'autorange': False)},
-		'aspectratio': {x=1, y=1, z=1}
+		'zaxis': {'range': [-0.1, 6.8], 'autorange': False},
+		'aspectratio': {'x': 1, 'y': 1, 'z': 1}
 	}
+
+
+FIG_WIDTH = 600
+FIG_HEIGHT = 600
