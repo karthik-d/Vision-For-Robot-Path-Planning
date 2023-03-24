@@ -57,19 +57,26 @@ class VolumeSliceSequencer:
         self.apply_gt = False
     
     def _load_volume(self):
-        volume = []
-        for slice_f in sorted(os.listdir(self.volume_path)):
+        
+        # TODO: This is a quick fix for sorting -- improve naming and sort logic
+        slice_f_list = os.listdir(self.volume_path)
+        slice_size = io.imread(os.path.join(self.volume_path, slice_f_list[0])).shape if self.target_slice_size is None else self.target_slice_size
+        volume = np.zeros((len(slice_f_list), *slice_size))
+        
+        for slice_f in slice_f_list:
+            slice_index = int(slice_f.split('_')[0])-1
             slice_ = io.imread(os.path.join(self.volume_path, slice_f))
             if self.target_slice_size is not None:
                 slice_ = transform.resize(slice_, self.target_slice_size, order=0)
                 # # make three-channel
                 # slice_ = np.transpose(np.tile(slice_, (3, 1, 1)), (1, 2, 0))
-            volume.append(slice_)
+            volume[slice_index, :, :] = slice_
         return np.array(volume)
 
     def _load_mask(self):
         mask = []
         for slice_f in sorted(os.listdir(self.mask_path)):
+            print(slice_f)
             slice_ = io.imread(os.path.join(self.mask_path, slice_f))
             if self.target_slice_size is not None:
                 slice_ = transform.resize(slice_, self.target_slice_size, order=0)
