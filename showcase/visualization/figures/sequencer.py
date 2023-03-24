@@ -19,7 +19,6 @@ class VolumeSliceSequencer:
             self.volume = io.imread("https://s3.amazonaws.com/assets.datacamp.com/blog_assets/attention-mri.tif")
         else:
             self.volume = self._load_volume()
-            print(self.volume.shape)
             
         if self.mask_path is None or not os.path.exists(self.mask_path):
             self.mask = np.zeros(self.volume.shape) 
@@ -36,13 +35,12 @@ class VolumeSliceSequencer:
 
         # normalization for colorscale -- reserve 1.0 for mask
         self.volume[self.volume>250] = 250
-        print(self.volume.max())
 
     def iter_with_mask(self):
-        self.apply_mask = False
+        self.apply_mask = True
 
     def iter_without_mask(self):
-        self.apply_mask = True
+        self.apply_mask = False
     
     def _load_volume(self):
         volume = []
@@ -61,6 +59,8 @@ class VolumeSliceSequencer:
             slice_ = io.imread(os.path.join(self.mask_path, slice_f))
             if self.target_slice_size is not None:
                 slice_ = transform.resize(slice_, self.target_slice_size, order=0)
+                slice_[slice_<127] = 0
+                slice_[slice_>=127] = 255
             mask.append(slice_)
         return np.array(mask)
 
@@ -69,12 +69,16 @@ class VolumeSliceSequencer:
     
     def __iter__(self):
         
+        if self.apply_mask:
+            volume = self.volume.copy()
+            volume[self.mask>127] = 255
+
         if self.batching_size is None:
-            for slice_ in self.volume:
+            for i, slice_ in enumerate(volume):
                 yield slice_ 
         else:
-            for i in range(0, self.volume.shape[0], self.batching_size):
-                yield self.volume[i:i+self.batching_size]
+            for i in range(0, volume.shape[0], self.batching_size):
+                yield volume[i:i+self.batching_size]
 
 
 # tester = VolumeSliceSequencer(os.path.join('..', 'assets', 'scan_6'), target_slice_size=(50, 50))

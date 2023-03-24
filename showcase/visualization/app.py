@@ -43,9 +43,11 @@ def slice_figure():
 def volume_figure():
 
     volume_container = sequencer.VolumeSliceSequencer(
-        os.path.join('assets', 'scan_6'), 
-        target_slice_size=(SLICE_WIDTH, SLICE_HEIGHT)
+        volume_path = os.path.join('assets', 'scan_6'), 
+        mask_path = os.path.join('assets', 'gt_6'), 
+        target_slice_size = (SLICE_WIDTH, SLICE_HEIGHT)
     )
+    volume_container.iter_with_mask()
     fig = preparator.get_volume_figure(volume_container)
     
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)   
