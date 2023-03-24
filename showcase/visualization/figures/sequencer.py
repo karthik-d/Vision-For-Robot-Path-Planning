@@ -35,8 +35,8 @@ class VolumeSliceSequencer:
         self.shape = (self.volume.shape[:3]) if self.batching_size is None else (self.batching_size, *self.volume.shape[1:3])
 
         # normalization for colorscale -- reserve 1.0 for mask
-        self.volume /= 255
-        self.volume[self.mask==1.0] = 0.99
+        self.volume[self.volume>250] = 250
+        print(self.volume.max())
 
     def iter_with_mask(self):
         self.apply_mask = False
@@ -50,9 +50,8 @@ class VolumeSliceSequencer:
             slice_ = io.imread(os.path.join(self.volume_path, slice_f))
             if self.target_slice_size is not None:
                 slice_ = transform.resize(slice_, self.target_slice_size, order=0)
-                # make three-channel
-                slice_ = np.transpose(np.tile(slice_, (3, 1, 1)), (1, 2, 0))
-                print(slice_.min(), slice_.max())
+                # # make three-channel
+                # slice_ = np.transpose(np.tile(slice_, (3, 1, 1)), (1, 2, 0))
             volume.append(slice_)
         return np.array(volume)
 

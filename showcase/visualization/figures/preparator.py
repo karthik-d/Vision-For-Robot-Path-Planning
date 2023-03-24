@@ -54,7 +54,7 @@ def get_volume_figure(volume_array):
 				z = (k*0.1) * np.ones((width, height)),
 				surfacecolor = np.flipud(slice_array),
 		    	cmin = 0, 
-				cmax = 200
+				cmax = 255
 		),
 		name=str(k))
 		for k, slice_array in enumerate(volume_array)]
@@ -66,7 +66,7 @@ def get_volume_figure(volume_array):
 		surfacecolor = np.flipud(volume_array[0]),
 		colorscale=PLOT_COLORSCALE,
 		cmin = 0, 
-		cmax = 200,
+		cmax = 255,
 		colorbar = dict(thickness=20, ticklen=4)
 		)
 	)

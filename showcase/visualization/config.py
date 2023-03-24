@@ -69,9 +69,9 @@ SLICE_WIDTH = 50
 SLICE_HEIGHT = 50
 
 
-gray_cmap = plot.get_cmap("gray")
-print(gray_cmap)
+# gray_cmap = plt.get_cmap("gray")
 PLOT_COLORSCALE = [
-	
+	[x/255, f'rgb({x},{x},{x})']
+	for x in range(255)
 ]
-PLOT_COLORSCALE.append([-1, 'rgb(100, 0, 0)']) # for masks
+PLOT_COLORSCALE.append([1.0, 'rgb(100, 0, 0)']) # for masks
