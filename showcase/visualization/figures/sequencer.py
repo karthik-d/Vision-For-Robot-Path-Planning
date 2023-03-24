@@ -65,25 +65,7 @@ fig.update_layout(
                     aspectratio=dict(x=1, y=1, z=1),
                     ),
          updatemenus = [
-            {
-                "buttons": [
-                    {
-                        "args": [None, frame_args(50)],
-                        "label": "&#9654;", # play symbol
-                        "method": "animate",
-                    },
-                    {
-                        "args": [[None], frame_args(0)],
-                        "label": "&#9724;", # pause symbol
-                        "method": "animate",
-                    },
-                ],
-                "direction": "left",
-                "pad": {"r": 10, "t": 70},
-                "type": "buttons",
-                "x": 0.1,
-                "y": 0,
-            }
+            
          ],
          sliders=sliders
 )

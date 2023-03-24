@@ -19,5 +19,11 @@ def test_figure():
     
     return render_template('fig-container.html', graphJSON=graphJSON)
 
+
+@app.route('/viz/slice')
+def slice_figure():
+    
+
+
 if __name__ == '__main__':
     app.run(debug=True)
