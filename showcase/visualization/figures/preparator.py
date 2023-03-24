@@ -39,5 +39,7 @@ def get_slice_figure(slice_array, num_frames=68):
     	scene = pack_scene_config(),
     	updatemenus = [ pack_update_menu_config() ],
         sliders = pack_slider_config(fig)
-)
+	)
+
+	return fig
 

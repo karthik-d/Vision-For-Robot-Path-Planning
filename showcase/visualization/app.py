@@ -28,7 +28,7 @@ def slice_figure():
     fig = preparator.get_slice_figure(
         io.imread("https://s3.amazonaws.com/assets.datacamp.com/blog_assets/attention-mri.tif").T[0]
     )
-
+    
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)   
     return render_template('fig-container.html', graphJSON=graphJSON)
 
