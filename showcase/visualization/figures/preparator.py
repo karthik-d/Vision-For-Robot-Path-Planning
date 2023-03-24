@@ -64,7 +64,7 @@ def get_volume_figure(volume_array):
 	fig.add_trace(go.Surface(
 		z = np.ones((width, height)),
 		surfacecolor = np.flipud(volume_array[0]),
-		colorscale='Gray',
+		colorscale=PLOT_COLORSCALE,
 		cmin = 0, 
 		cmax = 200,
 		colorbar = dict(thickness=20, ticklen=4)

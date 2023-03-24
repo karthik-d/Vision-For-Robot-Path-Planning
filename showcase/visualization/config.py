@@ -1,3 +1,6 @@
+from matplotlib import pyplot as plot
+
+
 def pack_frame_config(duration):
    
     return {
@@ -64,3 +67,11 @@ FIG_HEIGHT = 600
 
 SLICE_WIDTH = 50
 SLICE_HEIGHT = 50
+
+
+gray_cmap = plot.get_cmap("gray")
+print(gray_cmap)
+PLOT_COLORSCALE = [
+	
+]
+PLOT_COLORSCALE.append([-1, 'rgb(100, 0, 0)']) # for masks
