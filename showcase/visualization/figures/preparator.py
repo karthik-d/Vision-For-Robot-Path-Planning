@@ -47,7 +47,6 @@ def get_slice_figure(slice_array, num_frames=68):
 def get_volume_figure(volume_array):
 	
 	num_frames, width, height = volume_array.shape
-	print(num_frames)
 
 	fig = go.Figure(
 		frames = [go.Frame(

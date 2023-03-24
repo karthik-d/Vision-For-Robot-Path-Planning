@@ -41,15 +41,9 @@ def slice_figure():
 
 @app.route('/viz/volume')
 def volume_figure():
-    # fig = preparator.get_slice_figure(
-    #     transform.resize(
-    #         io.imread(os.path.join('assets', 'scan_6', '27_in.jpg')).T,
-    #         (SLICE_WIDTH, SLICE_HEIGHT),
-    #         order=0
-    #     )
-    # )
-    volume_iter
-    fig = preparator.get_volume_figure(vol)
+
+    volume_container = sequencer.VolumeSliceSequencer(os.path.join('assets', 'scan_6'), target_slice_size=(50, 50))
+    fig = preparator.get_volume_figure(volume_container)
     
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)   
     return render_template('fig-container.html', graphJSON=graphJSON)
