@@ -11,7 +11,7 @@ def get_slice_figure(slice_array, num_frames=68):
 	fig = go.Figure(
 		frames = [go.Frame(
 			data = go.Surface(
-				z = (6.7 - k * 0.1) * np.ones((width, height)),
+				z = (k*0.1) * np.ones((width, height)),
 				surfacecolor = np.flipud(slice_array),
 		    	cmin = 0, 
 				cmax = 200
@@ -22,7 +22,7 @@ def get_slice_figure(slice_array, num_frames=68):
 
 	# data payload
 	fig.add_trace(go.Surface(
-		z = (6.7 * np.ones((width, height))),
+		z = np.ones((width, height)),
 		surfacecolor = np.flipud(slice_array),
 		colorscale='Gray',
 		cmin = 0, 
@@ -37,6 +37,47 @@ def get_slice_figure(slice_array, num_frames=68):
         width = FIG_WIDTH,
         height = FIG_HEIGHT,
     	scene = pack_scene_config(),
+    	updatemenus = [ pack_update_menu_config() ],
+        sliders = pack_slider_config(fig)
+	)
+
+	return fig
+
+
+def get_volume_figure(volume_array):
+	
+	num_frames, width, height = volume_array.shape
+	print(num_frames)
+
+	fig = go.Figure(
+		frames = [go.Frame(
+			data = go.Surface(
+				z = (k*0.1) * np.ones((width, height)),
+				surfacecolor = np.flipud(slice_array),
+		    	cmin = 0, 
+				cmax = 200
+		),
+		name=str(k))
+		for k, slice_array in enumerate(volume_array)]
+	)
+
+	# data payload for start
+	fig.add_trace(go.Surface(
+		z = np.ones((width, height)),
+		surfacecolor = np.flipud(volume_array[0]),
+		colorscale='Gray',
+		cmin = 0, 
+		cmax = 200,
+		colorbar = dict(thickness=20, ticklen=4)
+		)
+	)
+
+	# configure layout
+	fig.update_layout(
+		title = 'Slices in volumetric data',
+        width = FIG_WIDTH,
+        height = FIG_HEIGHT,
+    	scene = pack_scene_config(num_frames),
     	updatemenus = [ pack_update_menu_config() ],
         sliders = pack_slider_config(fig)
 	)

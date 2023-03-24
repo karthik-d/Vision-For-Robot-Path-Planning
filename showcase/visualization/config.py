@@ -51,13 +51,16 @@ def pack_update_menu_config(play_bt_dur=50, pause_bt_dur=0):
 	}
 
 
-def pack_scene_config():
+def pack_scene_config(num_frames):
 	
 	return {
-		'zaxis': {'range': [-0.1, 6.8], 'autorange': False},
+		'zaxis': {'range': [-0.1, num_frames/10 + 1], 'autorange': False},
 		'aspectratio': {'x': 1, 'y': 1, 'z': 1}
 	}
 
 
 FIG_WIDTH = 600
 FIG_HEIGHT = 600
+
+SLICE_WIDTH = 50
+SLICE_HEIGHT = 50

@@ -1,11 +1,13 @@
 from flask import Flask, render_template
-from skimage import io
+from skimage import io, transform
 import pandas as pd
 import json
 import plotly
 import plotly.express as px
+import os
 
 from figures import preparator
+from config import *
 
 
 app = Flask(__name__)
@@ -26,8 +28,28 @@ def test_figure():
 @app.route('/viz/slice')
 def slice_figure():
     fig = preparator.get_slice_figure(
-        io.imread("https://s3.amazonaws.com/assets.datacamp.com/blog_assets/attention-mri.tif").T[0]
+        transform.resize(
+            io.imread(os.path.join('assets', 'scan_6', '27_in.jpg')).T,
+            (SLICE_WIDTH, SLICE_HEIGHT),
+            order=0
+        )
     )
+    
+    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)   
+    return render_template('fig-container.html', graphJSON=graphJSON)
+
+
+@app.route('/viz/volume')
+def volume_figure():
+    # fig = preparator.get_slice_figure(
+    #     transform.resize(
+    #         io.imread(os.path.join('assets', 'scan_6', '27_in.jpg')).T,
+    #         (SLICE_WIDTH, SLICE_HEIGHT),
+    #         order=0
+    #     )
+    # )
+    vol = io.imread("https://s3.amazonaws.com/assets.datacamp.com/blog_assets/attention-mri.tif")
+    fig = preparator.get_volume_figure(vol)
     
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)   
     return render_template('fig-container.html', graphJSON=graphJSON)
