@@ -51,8 +51,8 @@ $$\begin{equation*}
 $$\left|\left|\frac{d}{dt} D_M(x(t), y, p_2)\right|\right| = \frac{1}{p_2}\cdot$$
 
 Since $p_2$ is positive and $|x_i(t) - y_i|^{p_2-1}$ is non-negative, we have:
-$$
-\begin{equation*}
+
+$$\begin{equation*}
 \left\vert\frac{d}{dt}D_{M}(x(t), y, p_2)\right\vert \geq \left|\left|y-x(t-1)\right|^2-\left|y-x(t)\right|^2\right|\cdot\left|\left|\frac{d}{dt}E(t)\right|\right|\end{equation*}$$
 
 
