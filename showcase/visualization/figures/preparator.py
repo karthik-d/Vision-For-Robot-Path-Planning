@@ -101,17 +101,16 @@ def get_volume_figure(volume_array):
 	
 	num_frames, width, height = volume_array.shape
 	x, y, z = np.mgrid[0:num_frames, 0:width, 0:height]
-	print("Here")
 
 	fig = go.Figure(go.Volume(
 		x=x.flatten(),
 		y=y.flatten(),
 		z=z.flatten(),
 		colorscale=PLOT_COLORSCALE,
-		opacityscale=PLOT_OPACITYSCALE,
-		value=volume_array.volume.flatten(),#volume_array.volume,
-		opacity=0.1, # needs to be small to see through all surfaces
-		surface_count=17, # needs to be a large number for good volume rendering
+		opacityscale=SOLID_OPACITYSCALE,
+		value=volume_array.volume.flatten(),
+		opacity=0.2, 
+		surface_count=17
 	))
 	
 	# # data payload for start

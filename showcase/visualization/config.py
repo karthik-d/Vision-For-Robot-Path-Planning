@@ -97,9 +97,14 @@ PLOT_OPACITYSCALE.append([0.9, 0.4])
 
 BACKGROUND_THRESH = 100
 SOLID_OPACITYSCALE = [
-	[(0.0+(x*0.8)/255), 1.0]
-	for x in range(255)
+	[x, 0.2]
+	for x in range(BACKGROUND_THRESH, 251)
 ]
-for i, val in enumerate(SOLID_OPACITYSCALE):
-	if val[0]<(BACKGROUND_THRESH/255):
-		SOLID_OPACITYSCALE[i][1] = 0.0 
+SOLID_OPACITYSCALE.extend([
+	[x, 0.0]
+	for x in range(BACKGROUND_THRESH)
+])
+SOLID_OPACITYSCALE.extend([
+	[x, 1.0]
+	for x in range(251, 256)
+])

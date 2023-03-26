@@ -62,8 +62,8 @@ def volume_figure():
 
     volume_container = sequencer.VolumeSliceSequencer(
         volume_path = os.path.join('assets', 'scan_6'), 
-        mask_path = os.path.join('assets', 'pred_6'), 
-        # gt_path = os.path.join('assets', 'gt_6'), 
+        # mask_path = os.path.join('assets', 'pred_6'), 
+        gt_path = os.path.join('assets', 'gt_6'), 
         target_slice_size = (SLICE_WIDTH, SLICE_HEIGHT)
     )
     volume_container.iter_with_mask()
