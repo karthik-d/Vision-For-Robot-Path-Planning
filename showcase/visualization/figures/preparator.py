@@ -62,6 +62,17 @@ def get_slicewise_volume_figure(volume_array):
 		for k, slice_array in enumerate(volume_array)]
 	)
 
+	## TESTing for 3D
+	# fig = go.Figure(
+	# 		data = [ go.Surface(
+	# 			z = (k*0.1) * np.ones((width, height)),
+	# 			surfacecolor = np.flipud(slice_array),
+	# 	    	cmin = 0, 
+	# 			cmax = 255
+	# 	)
+	# 	for k, slice_array in enumerate(volume_array)]
+	# )
+
 	# data payload for start
 	fig.add_trace(go.Surface(
 		z = np.ones((width, height)),
@@ -89,54 +100,38 @@ def get_slicewise_volume_figure(volume_array):
 def get_volume_figure(volume_array):
 	
 	num_frames, width, height = volume_array.shape
+	x, y, z = np.mgrid[0:num_frames, 0:width, 0:height]
+	print("Here")
 
-	fig = go.Figure(
-		frames = [go.Frame(
-			data = go.Surface(
-				z = (k*0.1) * np.ones((width, height)),
-				surfacecolor = np.flipud(slice_array),
-				colorscale=PLOT_COLORSCALE,
-				opacityscale=SOLID_OPACITYSCALE,
-		    	cmin = 0, 
-				cmax = 255
-		),
-		name=str(k))
-		for k, slice_array in enumerate(volume_array)]
-	)
-
-	## TESTing for 3D
-	# fig = go.Figure(
-	# 		data = [ go.Surface(
-	# 			z = (k*0.1) * np.ones((width, height)),
-	# 			surfacecolor = np.flipud(slice_array),
-	# 	    	cmin = 0, 
-	# 			cmax = 255
-	# 	)
-	# 	for k, slice_array in enumerate(volume_array)]
-	# )
-
-	# data payload for start
-	fig.add_trace(go.Surface(
-		z = np.ones((width, height)),
-		surfacecolor = np.flipud(volume_array[0]),
+	fig = go.Figure(go.Volume(
+		x=x.flatten(),
+		y=y.flatten(),
+		z=z.flatten(),
 		colorscale=PLOT_COLORSCALE,
-		cmin = 0, 
-		cmax = 255,
-		colorbar = dict(thickness=20, ticklen=4)
+		opacityscale=PLOT_OPACITYSCALE,
+		value=volume_array.volume.flatten(),#volume_array.volume,
+		opacity=0.1, # needs to be small to see through all surfaces
+		surface_count=17, # needs to be a large number for good volume rendering
 	))
-	print(SOLID_OPACITYSCALE)
+	
+	# # data payload for start
+	# fig.add_trace(go.Surface(
+	# 	z = np.ones((width, height)),
+	# 	surfacecolor = np.flipud(volume_array[0]),
+	# 	colorscale=PLOT_COLORSCALE,
+	# 	opacityscale=PLOT_OPACITYSCALE,
+	# 	cmin = 0, 
+	# 	cmax = 255,
+	# 	colorbar = dict(thickness=20, ticklen=4)
+	# ))
 
 	# configure layout
 	fig.update_layout(
 		title = 'Slices in volumetric data',
         width = FIG_WIDTH,
         height = FIG_HEIGHT,
-    	scene = pack_scene_config(num_frames),
     	updatemenus = [ pack_update_menu_config() ],
         sliders = pack_slider_config(fig)
 	)
 
 	return fig
-
-
-# TESTS
