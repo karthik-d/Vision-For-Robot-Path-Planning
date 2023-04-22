@@ -4,12 +4,12 @@ clear all;
 episode = 1;
 tingzhi = 0;
 finite_states = 100000;
-iterations = 2;
+iterations = 10;
 max_tolerance = 10000;
 visualize = 0; % whether visualize, increase time consuming!
 % Define initial temperature and cooling rate for simulated annealing
 initial_temp = 1.0;
-cooling_rate = 0.005;
+cooling_rate = 0.09;
 
 while episode <= 1
     ALPHA = 0.30;
@@ -25,7 +25,7 @@ while episode <= 1
     
     workpath(finite_states,:) = (0);
     walk(finite_states,:) = (0);
-    terminal =  [0,0,3];
+    terminal =  [-1,1,3];
     obstacle =  [0,1,0;0,3,0;1,1,0;-1,1,0;-1,2,1;-1,3,1;-1,3,0;0,1,1;0,3,1;1,1,1;-1,1,1;0,1,-1;0,3,-1;1,1,-1;1,2,-1;1,3,-1;-1,1,-1;-1,2,-1;-1,3,-1;0,2,-1];
     %[0,1,0; 0,3,0; 1,1,0; -1,1,0; -1,2,1; -1,3,1; -1,3,0; 0,1,1; 0,3,1; 1,1,1; -1,1,1; 0,1,-1; 0,3,-1; 1,1,-1; 1,2,-1; 1,3,-1; -1,1,-1; -1,2,-1;  -1,3,-1; 0,2,-1];
     
@@ -63,18 +63,25 @@ while episode <= 1
             
             if nppp <= 9900
                 % Calculate current temperature based on number of steps in the current episode
-                greedy = initial_temp * exp(-cooling_rate * nppp);
+                temperature = initial_temp * exp(-cooling_rate * nppp);
             else
-                greedy = 0;
+                temperature = 0;
             end
             
-            if greedy<=greedy_set
+            if temperature > 0
+                % With some probability, choose a random action instead of the greedy action
+                if rand() < temperature
+                    c = randi([1,6],1,1);
+                else
+                    [mmm,nnn]=max(action(ppp,:));
+                    c = nnn;
+                end
+            else
+                % If temperature is 0, always choose the greedy action
                 [mmm,nnn]=max(action(ppp,:));
                 c = nnn;
-%--------------------------------------------------------------------------------------Action
-            else suiji = randi([1,6],1,1);
-                c = suiji;
             end
+
             if c==1
                 if place(i,1) < 5
                     place(i+1,:) = place(i,:)+[xxx,0,0];
@@ -237,3 +244,23 @@ walkrealpath = mean(walk,2);
 figure
 plot(walkrealpath(1:iterations))
 title('Steps by each Iteration'); xlabel('Iteration'); ylabel('Steps')
+
+% Find non-zero entries in the q_table
+[non_zero_row, non_zero_col] = find(q_table ~= 0);
+
+% Compress the q_table vectors into 1D and store as a separate variable
+q_vector = vecnorm(q_table, 2, 2);
+
+% Compress the realplace matrix into 1D and store as a separate variable
+realplace_vector = vecnorm(realplace, 2, 2);
+
+% Plot the non-zero values with color indicating the value of the compressed vector
+figure;
+scatter3(non_zero_row, non_zero_col, q_vector(non_zero_row), [], q_vector(non_zero_row), 'filled');
+xlabel('realplace');
+ylabel('action');
+zlabel('q-vector');
+title('Non-zero values in the Q-table with compressed q-vectors as color');
+
+
+
