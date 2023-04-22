@@ -2,7 +2,7 @@
 %ini_robot 
 Path_Schedule  % Terminal path planning
 overflow = 0; flow_pace = 1; theta = 1; pppp = 1; angle_change = 1;
-finite_states = 100000; iterations = 0; max_tolerance = 100;
+finite_states = 100000; iterations = 2; max_tolerance = 100;
 re_sche_vision = 1;
 
 x1_1=[ 0 1 2 3 4 -1 -2 -3]; % permutation and combination, break down each axis to 45¡ã, from -135¡ãto 180¡ã
