@@ -1,5 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for
 import matlab.engine
+from skimage import io, transform
+# import pandas as pd
+import json
+import plotly
+import plotly.express as px
+import os
+
+from figures import preparator, sequencer
+from config import *
 
 app = Flask(__name__)
 
@@ -27,8 +36,24 @@ def predict():
         return redirect(url_for('pathplanning'))
     
     else:
-        # TODO - pass actual img filename
-        return render_template('set-params-path-planning.html', image = 'segmented-output-sample.png')
+        # TODO - add model
+        print("ads")
+        volume_container = sequencer.VolumeSliceSequencer(
+            volume_path = os.path.join('assets', 'scan_6'), 
+            mask_path = os.path.join('assets', 'pred_6'), 
+            # gt_path = os.path.join('assets', 'gt_6'), 
+            target_slice_size = (SLICE_WIDTH, SLICE_HEIGHT)
+        )
+        print("ads")
+        volume_container.iter_with_mask()
+        # volume_container.iter_with_gt()
+        print("ads")
+        fig = preparator.get_volume_figure(volume_container)
+        print("ads")
+        graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+        print("ads")
+
+        return render_template('set-params-path-planning.html', graphJSON=graphJSON)
 
 
 @app.route('/pathplanning', methods=['GET', 'POST'])
@@ -37,8 +62,9 @@ def pathplanning():
     if request.method == 'POST':
         # Load the engine and run the path-planning files
         eng = matlab.engine.start_matlab()
-        eng.run("C:/Users/aniru/Vision-For-Robot-Path-Planning/path-planning/matlab-code/Path_Schedule.m", nargout=0)    
-
+        eng.run("startup_rvc.m", nargout=0)            
+        eng.run("C:/Users/aniru/Vision-For-Robot-Path-Planning/path-planning/matlab-code/Pose_Schedule_with_Reschedule.m", nargout=0)    
+        
         # Wait for user input before closing the figures
         input('Press Enter to Continue: ')
 
