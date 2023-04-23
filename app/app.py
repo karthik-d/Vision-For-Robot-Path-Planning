@@ -14,20 +14,29 @@ from config import *
 
 TARGET = []
 OBSTACLE = []
+CT_FOLDER_PATH = ''
+PREDICTION_FOLDER_PATH = ''
 
 app = Flask(__name__)
 
 @app.route('/',  methods=["GET", "POST"])
 def home():
     if request.method == 'POST':
-        image_file = request.files['ct-image-file']
-        try:
-            image_data = image_file.read()
-            print('LOG: Image data loaded!')
-        except:
-            print('LOG: Unable to load image.')
 
-        # TODO - load the model, run inference and save the output
+        ct_folder_path = ''
+        prediction_folder_path = ''
+        
+        ct_image_files = request.files.getlist('ct-image-folder')
+        if ct_image_files:
+            ct_folder_path = os.path.abspath(os.path.join('assets',os.path.dirname(ct_image_files[0].filename)))
+            
+        prediction_files = request.files.getlist('prediction-mask-folder')
+        if prediction_files:
+            prediction_folder_path = os.path.abspath(os.path.join('assets', os.path.dirname(prediction_files[0].filename)))
+        
+        global CT_FOLDER_PATH, PREDICTION_FOLDER_PATH
+        CT_FOLDER_PATH = ct_folder_path
+        PREDICTION_FOLDER_PATH = prediction_folder_path
 
         return redirect(url_for('predict'))
 
@@ -57,10 +66,12 @@ def predict():
         return redirect(url_for('pathplanning'))
     
     else:
-        # TODO - add model
+        global CT_FOLDER_PATH, PREDICTION_FOLDER_PATH
+        print(CT_FOLDER_PATH, PREDICTION_FOLDER_PATH)
+
         volume_container = sequencer.VolumeSliceSequencer(
-            volume_path = os.path.join('assets', 'scan_6'), 
-            mask_path = os.path.join('assets', 'pred_6'), 
+            volume_path = CT_FOLDER_PATH, 
+            mask_path = PREDICTION_FOLDER_PATH, 
             # gt_path = os.path.join('assets', 'gt_6'), 
             target_slice_size = (SLICE_WIDTH, SLICE_HEIGHT)
         )
