@@ -64,6 +64,8 @@
             </div>   
             <p><em id="ct-image-folder-count"></em></p>
           </div>
+          
+          <!--
           <div class="form-group">
             <small class="form-text text-muted">Select a folder containing CT slice predictions.</small>
             <div class="file-input">
@@ -72,7 +74,8 @@
             </div>   
             <p><em id="prediction-mask-folder-count"></em></p>
           </div>
-          
+          -->
+
           <script>
               const ctImageFolderInput = document.getElementById('ct-image-folder');
               const ctImageFolderCount = document.getElementById('ct-image-folder-count');
@@ -81,12 +84,13 @@
                   ctImageFolderCount.textContent = `Selected ${ctImageFolderInput.files.length} files from folder '${folderName}'`;
               });
               
-              const predictionMaskFolderInput = document.getElementById('prediction-mask-folder');
+              
+              /*const predictionMaskFolderInput = document.getElementById('prediction-mask-folder');
               const predictionMaskFolderCount = document.getElementById('prediction-mask-folder-count');
               predictionMaskFolderInput.addEventListener('change', () => {
               const folderName = predictionMaskFolderInput.files[0].webkitRelativePath.split('/')[0];
               predictionMaskFolderCount.textContent = `Selected ${predictionMaskFolderInput.files.length} files from folder '${folderName}'`;
-            });
+            });*/
 
           </script>
                     

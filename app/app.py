@@ -15,7 +15,7 @@ from config import *
 TARGET = []
 OBSTACLE = []
 CT_FOLDER_PATH = ''
-PREDICTION_FOLDER_PATH = ''
+PREDICTION_FOLDER_PATH = 'C:/Users/aniru/Vision-For-Robot-Path-Planning/app/assets/pred_6'
 
 app = Flask(__name__)
 
@@ -30,13 +30,15 @@ def home():
         if ct_image_files:
             ct_folder_path = os.path.abspath(os.path.join('assets',os.path.dirname(ct_image_files[0].filename)))
             
+        '''
         prediction_files = request.files.getlist('prediction-mask-folder')
         if prediction_files:
             prediction_folder_path = os.path.abspath(os.path.join('assets', os.path.dirname(prediction_files[0].filename)))
-        
+        '''
+
         global CT_FOLDER_PATH, PREDICTION_FOLDER_PATH
         CT_FOLDER_PATH = ct_folder_path
-        PREDICTION_FOLDER_PATH = prediction_folder_path
+        #PREDICTION_FOLDER_PATH = prediction_folder_path
 
         return redirect(url_for('predict'))
 
