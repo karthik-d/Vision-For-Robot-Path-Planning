@@ -45,6 +45,32 @@ def home():
     else:
         return render_template('result-visualization.html')
 
+@app.route('/mobile',  methods=["GET", "POST"])
+def mobile_home():
+    if request.method == 'POST':
+
+        ct_folder_path = ''
+        prediction_folder_path = ''
+        
+        ct_image_files = request.files['ct-image-folder']
+        if ct_image_files:
+            ct_folder_path = os.path.abspath(os.path.join('assets',os.path.dirname(ct_image_files[0].filename)))
+            
+        '''
+        prediction_files = request.files.getlist('prediction-mask-folder')
+        if prediction_files:
+            prediction_folder_path = os.path.abspath(os.path.join('assets', os.path.dirname(prediction_files[0].filename)))
+        '''
+
+        global CT_FOLDER_PATH, PREDICTION_FOLDER_PATH
+        CT_FOLDER_PATH = 'C:/Users/aniru/Vision-For-Robot-Path-Planning/app/assets/scan_6'
+        #PREDICTION_FOLDER_PATH = prediction_folder_path
+
+        return redirect(url_for('predict'))
+
+    else:
+        return render_template('result-visualization.html')
+
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
@@ -120,4 +146,4 @@ def complete():
 
 if __name__ == "__main__":
     app.secret_key="secret123"
-    app.run(debug=True)
+    app.run(host = "0.0.0.0",debug=True)
