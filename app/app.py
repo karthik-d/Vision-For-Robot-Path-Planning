@@ -132,7 +132,7 @@ def pathplanning():
             matlab_engines = matlab.engine.find_matlab()    
         
         # Wait for user input before closing the figures
-        #input('Press Enter to Continue: ')
+        input('Press Enter to Continue: ')
 
         #return render_template('path-planning.html', loading = False)
 
