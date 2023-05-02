@@ -144,18 +144,26 @@ function Path_Schedule(target)
                 end
     
                 %---------------------------------------------------------------------------------------The closer you get to the target, the more bonus you get. Vice Versa
+                current_distance = norm(terminal(1,1)-place(i+1,1), 2) + norm(terminal(1,2)-place(i+1,2), 2) + norm(terminal(1,3)-place(i+1,3), 2);
+                previous_distance = norm(position_previous - terminal)^2;
+                
                 % calculate p value using Equation 2
-                p = norm(place - target_previous)^2 - norm(position_previous - target_previous)^2;
+                p = current_distance - previous_distance;
                 
                 % calculate the Chebyshev distance
-                chebyshev_distance = max(abs(place - target_previous));
-                
+                x = abs(terminal(1,1)-place(i+1,1));
+                y = abs(terminal(1,2)-place(i+1,2));
+                z = abs(terminal(1,3)-place(i+1,3));
+               
+                chebyshev_distance = max([x, y, z]);
+
                 % calculate the Minkowski distance using the p value
-                minkowski_distance = (sum(abs(place - target_previous).^p))^(1/p) - (sum(abs(position_previous - target_previous).^p))^(1/p);
+                minkowski_distance = (norm(terminal(1,1)-place(i+1,1), p) ^ p + norm(terminal(1,2)-place(i+1,2), p) ^ p + norm(terminal(1,3)-place(i+1,3), p) ^ p) ^ (1/p);                
                 
                 % calculate the maximum distance using the Chebyshev and Minkowski distances
-                r = max(chebyshev_distance, minkowski_distance);                
-                
+                distance_reward = max(chebyshev_distance, minkowski_distance);
+                position_previous = place(i,:);
+
                 r = r + distance_reward * 80;
     
                 for obs=1:1:obs_1 % Collision Detection
