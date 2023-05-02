@@ -1,7 +1,7 @@
 # Vision-For-Robot-Path-Planning
 Vision-based path planning for Mobile Robots
 
-### Hardware Requirements
+### Hardware Recommendation
 The system used to run both the segmentation models and the path planning code had the following specifications:
 
 - **CPU:** AMD Ryzen 7 6800H with Radeon Graphics (3.20 GHz)
@@ -10,11 +10,10 @@ The system used to run both the segmentation models and the path planning code h
 
 
 ### Software Requirements
-Software specifications include:
 
-- **Segmentation:** Torch and Scikit-learn
+- **Segmentation:** PyTorch and Scikit-learn
 - **Path planning:** Matlab and RVCTools
-- **Flask Application:** Flask, SciPy, Scikit, Plotly, and Pandas
+- **Web Application:** Flask, SciPy, Scikit, Plotly, and Pandas
 
 ### Application
 The Flask application is designed to run on a local machine and requires MATLAB R2022b installed.
@@ -44,7 +43,7 @@ Once the virtual environment has been activated and the dependencies have been i
 python app.py
 ```
 
-This will start the Flask app, which can be accessed by navigating to http://localhost:5000 in your web browser.
+This will start the Flask app, which can be accessed by navigating to [http://localhost:5000](http://localhost:5000) in your web browser.
 
 
 ### Path-Planning
