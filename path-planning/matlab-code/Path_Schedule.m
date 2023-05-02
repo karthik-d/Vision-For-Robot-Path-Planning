@@ -8,7 +8,9 @@ function Path_Schedule(target)
     % Define initial temperature and cooling rate for simulated annealing
     initial_temp = 1.0;
     cooling_rate = 0.09;
-    
+    target_previous = target;
+    position_previous = [0,-2,4];
+
     while episode <= 1
         ALPHA = 0.30;
         GAMA = 0.7;
@@ -142,8 +144,18 @@ function Path_Schedule(target)
                 end
     
                 %---------------------------------------------------------------------------------------The closer you get to the target, the more bonus you get. Vice Versa
-                distance_ontime = abs(terminal(1,1)-place(i+1,1)) + abs(terminal(1,2)-place(i+1,2)) + abs(terminal(1,3)-place(i+1,3));
-                distance_reward = (distance_origin - distance_ontime);
+                % calculate p value using Equation 2
+                p = norm(place - target_previous)^2 - norm(position_previous - target_previous)^2;
+                
+                % calculate the Chebyshev distance
+                chebyshev_distance = max(abs(place - target_previous));
+                
+                % calculate the Minkowski distance using the p value
+                minkowski_distance = (sum(abs(place - target_previous).^p))^(1/p) - (sum(abs(position_previous - target_previous).^p))^(1/p);
+                
+                % calculate the maximum distance using the Chebyshev and Minkowski distances
+                r = max(chebyshev_distance, minkowski_distance);                
+                
                 r = r + distance_reward * 80;
     
                 for obs=1:1:obs_1 % Collision Detection
