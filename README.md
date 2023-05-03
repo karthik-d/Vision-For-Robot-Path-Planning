@@ -49,8 +49,8 @@ This will start the Flask app, which can be accessed by navigating to [http://lo
 
 All the stroke segmentation models are implemented in python notebooks. These notebooks can be downloaded and executed on a GPU, after obtaining the dataset and setting the filepath in the notebook suitably.
 
-- Baseline Models: showcase/lesion-segmentation
-- Proposed Network: showcase/lesion-segmentation/proposed-net
+- Baseline Models: [showcase/lesion-segmentation](./showcase/lesion-segmentation)
+- Proposed Network: [showcase/lesion-segmentation/proposed-net](./showcase/lesion-segmentation/proposed-net)
 - Link to datasets: [Intercranial Hemorrhage Dataset](https://www.mdpi.com/2306-5729/5/1/14)
 
 
