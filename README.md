@@ -45,8 +45,16 @@ python app.py
 
 This will start the Flask app, which can be accessed by navigating to [http://localhost:5000](http://localhost:5000) in your web browser.
 
+### Module 1: Segmentation Models
 
-### Path-Planning
+All the stroke segmentation models are implemented in python notebooks. These notebooks can be downloaded and executed on a GPU, after obtaining the dataset and setting the filepath in the notebook suitably.
+
+- Baseline Models: showcase/lesion-segmentation
+- Proposed Network: showcase/lesion-segmentation/proposed-net
+- Link to datasets: [Intercranial Hemorrhage Dataset](https://www.mdpi.com/2306-5729/5/1/14)
+
+
+### Module 2: Path-Planning
 The MATLAB scripts are designed to perform path planning using Q-Learning with a 6-DOF robotic arm in an environment with obstacles.
 
 #### Installation
