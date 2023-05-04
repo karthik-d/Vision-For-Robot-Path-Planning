@@ -1,3 +1,4 @@
+figure;
 Plot_Environment; hold on;
 path_length = workpath(nppp-1,1);
 show_line = 1;

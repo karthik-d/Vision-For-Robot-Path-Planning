@@ -70,22 +70,6 @@ function realdistance = point_to_line(point1, point2, obstacle1)
 
 end
 
-function dist = Distance(X, Y)
-    % Calculate Chebyshev distance
-    dist_chebyshev = max(abs(X-Y));
-    
-    % Calculate Manhattan distance and count the number of non-aligned coordinates
-    non_aligned = find(X ~= Y);
-    dist_manhattan = sum(abs(X(non_aligned) - Y(non_aligned)));
-    num_non_aligned = length(non_aligned);
-    
-    % Calculate Minkowski distance
-    if num_non_aligned == 0
-        dist_minkowski = dist_chebyshev;
-    else
-        dist_minkowski = (dist_manhattan / num_non_aligned) ^ (num_non_aligned / (num_non_aligned - 1));
-    end
-    
-    % Return the maximum of Chebyshev and Minkowski distances
-    dist = max(dist_chebyshev, dist_minkowski);
+function dist = Distance(X,Y)
+     dist = sqrt(sum((X - Y).^2));
 end

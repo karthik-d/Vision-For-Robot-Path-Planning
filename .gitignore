@@ -131,3 +131,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Misc
+refs-kr.bib
+refs-naren.bib
